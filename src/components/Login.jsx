@@ -49,7 +49,7 @@ export default function Login({ postURL }) {
   };
 
   return (
-    <div className="max-w-52 mx-auto">
+    <div className="min-w-[80vw] mx-auto flex flex-col">
       {successMessage && <span>{successMessage}</span>}
       <form
         onSubmit={handleSubmit}
@@ -63,7 +63,7 @@ export default function Login({ postURL }) {
         />
       </form>
       {errors.length > 0 && (
-        <ul>
+        <ul className="flex flex-col justify-center items-center">
           {errors.map((error, index) => (
             <li
               key={index}
@@ -79,6 +79,5 @@ export default function Login({ postURL }) {
 }
 
 Login.propTypes = {
-  url: PropTypes.string.isRequired, // Utilisation de PropTypes pour valider les props
   postURL: PropTypes.string.isRequired,
 };

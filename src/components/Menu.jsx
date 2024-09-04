@@ -1,7 +1,9 @@
 import { useLocation, Link } from 'react-router-dom';
+import { useAuthContext } from '../AuthContext';
 
 export default function Menu() {
   const location = useLocation();
+  const { logged } = useAuthContext();
 
   return (
     <>
@@ -112,13 +114,23 @@ export default function Menu() {
                 </Link>
               </li>
               <li className="px-3">
-                <a
-                  href="#"
-                  className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50"
-                >
-                  {/* Icon and Label */}
-                  Team
-                </a>
+                {logged ? (
+                  <Link
+                    to="/logout"
+                    className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50"
+                  >
+                    {/* Icon and Label */}
+                    Log out
+                  </Link>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50"
+                  >
+                    {/* Icon and Label */}
+                    Login
+                  </Link>
+                )}
               </li>
             </ul>
           </div>

@@ -12,7 +12,7 @@ export default function useAuth(url) {
   useEffect(() => {
     if (!token) {
       setLogged(false);
-      window.location.href = 'https://blog-api-front-users.vercel.app/login';
+      window.location.href = '/login';
 
       return;
     }
@@ -27,16 +27,15 @@ export default function useAuth(url) {
         if (response.status === 401) {
           localStorage.removeItem('accessToken');
           setLogged(false);
-          window.location.href =
-            'https://blog-api-front-users.vercel.app/login';
+          window.location.href = '/login';
 
           return;
         }
 
         return response.json();
       })
-      .then((jsonData) => {
-        setData(jsonData);
+      .then((data) => {
+        setData(data);
         setLoading(false);
       })
       .catch((error) => {

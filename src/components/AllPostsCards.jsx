@@ -1,5 +1,6 @@
 import PostCard from './PostCard';
 import useAuth from '../hooks/authFetch';
+import useFetch from '../hooks/fetchPosts';
 import PropTypes from 'prop-types';
 
 export default function AllPostsCards({ url }) {

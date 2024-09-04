@@ -22,7 +22,9 @@ const router = createBrowserRouter([
       },
       {
         path: '/login',
-        element: <Login />,
+        element: (
+          <Login postURL="https://hachounet-blog-api-backend.adaptable.app/login" />
+        ),
       },
       {
         path: '/logout',
