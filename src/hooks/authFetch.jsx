@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuthContext } from '../AuthContext';
-
+import { useNavigate } from 'react-router-dom';
 // This is a variant of authFetch from blog-api-front-users. Main difference is it will redirect to /login from users frontend.
 
 export default function useAuth(url) {
@@ -8,11 +8,11 @@ export default function useAuth(url) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { setLogged, token } = useAuthContext();
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (!token) {
       setLogged(false);
-      window.location.href = '/login';
+      navigate('/login');
 
       return;
     }
@@ -27,7 +27,7 @@ export default function useAuth(url) {
         if (response.status === 401) {
           localStorage.removeItem('accessToken');
           setLogged(false);
-          window.location.href = '/login';
+          navigate('/login');
 
           return;
         }
