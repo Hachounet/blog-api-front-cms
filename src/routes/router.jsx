@@ -6,6 +6,7 @@ import Login from '../components/Login';
 import Logout from '../components/Logout';
 import AllComments from '../components/AllComments';
 import AllDrafts from '../components/AllDrafts';
+import NewPost from '../components/NewPost';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
         element: (
           <AllPostsCards url="https://hachounet-blog-api-backend.adaptable.app/dashboard/all" />
         ),
+      },
+      {
+        path: '/newpost',
+        element: <NewPost />,
       },
       {
         path: '/comments',

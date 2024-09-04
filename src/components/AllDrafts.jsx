@@ -1,7 +1,7 @@
 import PostCard from './PostCard';
 import useFetch from '../hooks/fetchPosts';
 import ButtonRoundedFullBasePrimaryElevated from './ButtonElevatedBase';
-
+import CreatePostBtn from './CreatePostBtn';
 export default function AllDrafts({ url }) {
   const { data, loading, error } = useFetch(url);
 
@@ -12,7 +12,7 @@ export default function AllDrafts({ url }) {
   return (
     <>
       <div className="min-w-[100%] flex justify-center pt-2">
-        <ButtonRoundedFullBasePrimaryElevated text="Create new post" />
+        <CreatePostBtn text="Create new post" />
       </div>
 
       <div className="grid grid-cols-3 grid-rows-4 gap-8 pt-8 pr-4 pl-4">
