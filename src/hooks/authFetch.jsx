@@ -12,7 +12,7 @@ export default function useAuth(url) {
   useEffect(() => {
     if (!token) {
       setLogged(false);
-      window.location.href = '/login';
+      window.location.href = 'https://blog-api-front-users.vercel.app/login';
 
       return;
     }
