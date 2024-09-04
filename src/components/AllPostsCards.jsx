@@ -1,9 +1,9 @@
 import PostCard from './PostCard';
-import useFetch from '../hooks/fetchPosts';
+import useAuth from '../hooks/authFetch';
 import PropTypes from 'prop-types';
 
 export default function AllPostsCards({ url }) {
-  const { data, loading, error } = useFetch(url);
+  const { data, loading, error } = useAuth(url);
 
   if (loading) return <div>Loading posts...</div>;
   if (error) return <div>An error occurred: {error.message}</div>;

@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-
 import PostCard from './PostCard';
-import useFetch from '../hooks/fetchPosts';
+import useAuth from '../hooks/authFetch';
 
 import CreatePostBtn from './CreatePostBtn';
 export default function AllDrafts({ url }) {
-  const { data, loading, error } = useFetch(url);
+  const { data, loading, error } = useAuth(url);
 
   if (loading) return <div>Loading drafts...</div>;
   if (error) return <div>An error occurred: {error.message}</div>;

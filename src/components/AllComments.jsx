@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import CommentCard from './CommentCard';
-import useFetch from '../hooks/fetchPosts';
+import useAuth from '../hooks/authFetch';
 
 export default function AllComments({ url }) {
-  const { data, loading, error } = useFetch(url);
+  const { data, loading, error } = useAuth(url);
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
