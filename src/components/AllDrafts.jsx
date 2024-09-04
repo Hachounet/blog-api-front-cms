@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
+
 import PostCard from './PostCard';
 import useFetch from '../hooks/fetchPosts';
-import ButtonRoundedFullBasePrimaryElevated from './ButtonElevatedBase';
+
 import CreatePostBtn from './CreatePostBtn';
 export default function AllDrafts({ url }) {
   const { data, loading, error } = useFetch(url);
@@ -8,7 +10,6 @@ export default function AllDrafts({ url }) {
   if (loading) return <div>Loading drafts...</div>;
   if (error) return <div>An error occurred: {error.message}</div>;
 
-  console.log(data);
   return (
     <>
       <div className="min-w-[100%] flex justify-center pt-2">
@@ -29,3 +30,7 @@ export default function AllDrafts({ url }) {
     </>
   );
 }
+
+AllDrafts.propTypes = {
+  url: PropTypes.string.isRequired,
+};

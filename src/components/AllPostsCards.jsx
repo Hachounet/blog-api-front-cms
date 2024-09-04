@@ -1,5 +1,6 @@
 import PostCard from './PostCard';
 import useFetch from '../hooks/fetchPosts';
+import PropTypes from 'prop-types';
 
 export default function AllPostsCards({ url }) {
   const { data, loading, error } = useFetch(url);
@@ -7,7 +8,6 @@ export default function AllPostsCards({ url }) {
   if (loading) return <div>Loading posts...</div>;
   if (error) return <div>An error occurred: {error.message}</div>;
 
-  console.log(data);
   return (
     <div className="grid grid-cols-3 grid-rows-4 gap-8 pt-8 pr-4 pl-4">
       {data.posts.map((post) => (
@@ -23,3 +23,7 @@ export default function AllPostsCards({ url }) {
     </div>
   );
 }
+
+AllPostsCards.propTypes = {
+  url: PropTypes.string.isRequired,
+};

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export default function CommentBtnsGroup({
   onApprove,
   onReject,
@@ -26,3 +28,9 @@ export default function CommentBtnsGroup({
     </>
   );
 }
+
+CommentBtnsGroup.propTypes = {
+  onApprove: PropTypes.func.isRequired,
+  onReject: PropTypes.func.isRequired,
+  isProcessing: PropTypes.bool.isRequired,
+};

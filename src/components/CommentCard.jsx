@@ -2,8 +2,9 @@ import { enGB } from 'date-fns/locale';
 import CommentBtnsGroup from './CommentBtnsGroup';
 import { formatDistanceToNow } from 'date-fns';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-export default function PostCard({
+export default function CommentCard({
   url,
   id,
   author,
@@ -12,9 +13,11 @@ export default function PostCard({
   onAction,
 }) {
   const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState('');
 
   const handleAction = async (actionType) => {
     setIsProcessing(true);
+    setError('');
     try {
       const response = await fetch(
         `${url}?commentId=${id}&authorized=${actionType}`,
@@ -27,13 +30,13 @@ export default function PostCard({
       );
 
       if (response.ok) {
-        // Invoquer le callback pour mettre à jour l'état local
-        onAction();
+        onAction(); // Invoquer le callback pour mettre à jour l'état local
       } else {
-        console.error(`Failed to ${actionType} comment`);
+        const errorText = await response.text();
+        setError(`Failed to ${actionType} comment. Error: ${errorText}`);
       }
     } catch (error) {
-      console.error('An error occurred:', error);
+      setError(`Failed to ${actionType} comment. Error: ${error.message}`);
     } finally {
       setIsProcessing(false);
     }
@@ -60,6 +63,16 @@ export default function PostCard({
           isProcessing={isProcessing}
         />
       </div>
+      {error && <span className="text-red-500">{error}</span>}
     </div>
   );
 }
+
+CommentCard.propTypes = {
+  url: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  createdAt: PropTypes.instanceOf(Date).isRequired,
+  content: PropTypes.string.isRequired,
+  onAction: PropTypes.func.isRequired,
+};

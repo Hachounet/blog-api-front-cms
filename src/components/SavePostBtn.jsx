@@ -16,6 +16,7 @@ export default function SavePostBtn({ text, className1 = '', onClick }) {
 }
 
 SavePostBtn.propTypes = {
-  text: PropTypes.string.isRequired, // Utilisation de PropTypes pour valider les props
-  className1: PropTypes.string, // Ajout de la validation de prop pour className
+  text: PropTypes.string.isRequired,
+  className1: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
 };
