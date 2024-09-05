@@ -8,7 +8,7 @@ function App() {
     <>
       <AuthProvider>
         <div className="flex">
-          <div className="min-w-[12vw]">
+          <div className="min-w-[15vw]">
             <Menu></Menu>
           </div>
           <div className="">
