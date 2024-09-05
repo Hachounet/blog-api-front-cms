@@ -5,10 +5,6 @@ export default function ButtonRoundedFullBasePrimaryElevated({
   text,
   className1 = '',
 }) {
-
-    
-
-
   return (
     <>
       {/*<!-- Component: Base primary elevated button --> */}

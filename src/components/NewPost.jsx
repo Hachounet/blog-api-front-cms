@@ -13,6 +13,7 @@ export default function NewPost() {
     return h1 ? h1.textContent : 'Untitled';
   };
 
+  // eslint-disable-next-line no-unused-vars
   const onEditorInputChange = (newValue, editor) => {
     setValue(newValue);
     const extractedTitle = extractTitleFromContent(newValue);
