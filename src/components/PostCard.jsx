@@ -44,6 +44,10 @@ export default function PostCard({
     }
   };
 
+  const handlePublish = async (event) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="flex flex-col h-full overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200">
       <div className="p-6 flex-grow">
@@ -64,12 +68,9 @@ export default function PostCard({
           postId={postId}
           updateURL={updateURL}
           handleDelete={handleDelete}
+          handlePublish={handlePublish}
+          published={published}
         />
-        {published ? (
-          <span className="">Published</span>
-        ) : (
-          <span className="">Draft/Not published</span>
-        )}
       </div>
     </div>
   );
