@@ -11,10 +11,12 @@ export default function PostCard({
   title,
   content,
   published,
-  onDelete, // Receive the onDelete function
+  onDelete,
 }) {
   const deleteURL =
     'https://hachounet-blog-api-backend.adaptable.app/dashboard/delete';
+
+  const updateURL = `https://hachounet-blog-api-backend.adaptable.app/dashboard/${postId}/update`;
   const { token, setLogged } = useAuthContext();
   const navigate = useNavigate();
 
@@ -58,7 +60,10 @@ export default function PostCard({
         <p className="line-clamp-4">{content}</p>
       </div>
       <div className="flex justify-center pb-2 gap-1 items-center mt-auto">
-        <ButtonGroup handleDelete={handleDelete} />
+        <ButtonGroup
+          updateURL={updateURL}
+          handleDelete={handleDelete}
+        />
         {published ? (
           <span className="">Published</span>
         ) : (

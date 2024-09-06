@@ -7,6 +7,7 @@ import Logout from '../components/Logout';
 import AllComments from '../components/AllComments';
 import AllDrafts from '../components/AllDrafts';
 import NewPost from '../components/NewPost';
+import UpdatePost from '../components/UpdatePost';
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/newpost',
-        element: <NewPost />,
+        element: (
+          <NewPost url="https://hachounet-blog-api-backend.adaptable.app/dashboard/create" />
+        ),
+      },
+      {
+        path: '/update',
+        element: (
+          <UpdatePost url="https://hachounet-blog-api-backend.adaptable.app/dashboard/" />
+        ),
       },
       {
         path: '/comments',
