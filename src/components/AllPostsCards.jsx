@@ -18,6 +18,14 @@ export default function AllPostsCards({ url }) {
     setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
   };
 
+  const handlePublish = (postId) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === postId ? { ...post, published: !post.published } : post
+      )
+    );
+  };
+
   if (loading) return <div>Loading posts...</div>;
   if (error) return <div>An error occurred: {error.message}</div>;
 
@@ -36,7 +44,8 @@ export default function AllPostsCards({ url }) {
             title={post.title}
             content={post.Content}
             published={post.published}
-            onDelete={handlePostDelete} // Pass the delete handler
+            onDelete={handlePostDelete}
+            onPublish={handlePublish}
           />
         ))}
       </div>

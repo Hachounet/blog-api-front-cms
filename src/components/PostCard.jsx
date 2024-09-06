@@ -12,11 +12,13 @@ export default function PostCard({
   content,
   published,
   onDelete,
+  onPublish,
 }) {
   const deleteURL =
     'https://hachounet-blog-api-backend.adaptable.app/dashboard/delete';
 
   const updateURL = `https://hachounet-blog-api-backend.adaptable.app/dashboard/${postId}/update`;
+  const publishURL = `https://hachounet-blog-api-backend.adaptable.app/dashboard/publish`;
   const { token, setLogged } = useAuthContext();
   const navigate = useNavigate();
 
@@ -46,6 +48,26 @@ export default function PostCard({
 
   const handlePublish = async (event) => {
     event.preventDefault();
+
+    try {
+      const response = await fetch(`${publishURL}?postId=${postId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        onPublish(postId);
+      } else if (response.status === 401) {
+        localStorage.removeItem('accessToken');
+        setLogged(false);
+        navigate('/login');
+      }
+    } catch (err) {
+      return;
+    }
   };
 
   return (
