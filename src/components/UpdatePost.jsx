@@ -14,29 +14,59 @@ export default function EditPost({ url }) {
   const { token, setLogged } = useAuthContext();
   const navigate = useNavigate();
 
-  const { data, loading, error } = useAuth(`${url}${postId}/update`);
+  const { data, loading, error } = useAuth(`${url}/update?postId=${postId}`);
+  console.log(data);
 
+  // Fonction pour extraire le titre à partir du premier h1
+  const extractTitleFromContent = (content) => {
+    const doc = new DOMParser().parseFromString(content, 'text/html');
+    const h1 = doc.querySelector('h1');
+    return h1 ? h1.textContent : 'Untitled';
+  };
+
+  // Fonction pour enlever le premier h1 du contenu
+  const removeFirstH1FromContent = (content) => {
+    const doc = new DOMParser().parseFromString(content, 'text/html');
+    const h1 = doc.querySelector('h1');
+    if (h1) {
+      h1.remove(); // Enlève le premier h1
+    }
+    return doc.body.innerHTML; // Retourne le nouveau contenu sans le h1
+  };
+
+  // Met à jour le contenu et le titre lorsqu'on reçoit les données
   useEffect(() => {
     if (data) {
-      setTitle(data.title);
-      setContent(data.Content);
+      setContent(data.postToUpdate.Content);
+      const extractedTitle = extractTitleFromContent(data.postToUpdate.Content);
+      setTitle(extractedTitle);
     }
   }, [data]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>An error occurred. {error.message}</div>;
 
+  // Met à jour le contenu et extrait le titre lors de chaque modification
+  const onEditorInputChange = (newValue, editor) => {
+    setContent(newValue);
+    const extractedTitle = extractTitleFromContent(newValue);
+    setTitle(extractedTitle);
+  };
+
   const savePost = async () => {
+    // Supprime le premier h1 du contenu avant de l'enregistrer
+    const cleanedContent = removeFirstH1FromContent(content);
+
     try {
-      const response = await fetch(`${url}/${postId}/update`, {
+      const response = await fetch(`${url}/update?postId=${postId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          title: title,
-          content: content,
+          title: title, // Utilise le titre extrait
+          content: cleanedContent, // Utilise le contenu sans le premier h1
         }),
       });
 
@@ -60,20 +90,15 @@ export default function EditPost({ url }) {
 
   return (
     <>
-      <h1>Edit Post</h1>
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Post title"
-      />
+      <h1 className="pl-4">Edit Post</h1>
+
       <Editor
         apiKey={'lcl13p17airpvjjdng284n9n4643p625cxmoojv8wepxce43'}
         value={content}
-        onEditorChange={(newValue, editor) => setContent(newValue)}
+        onEditorChange={onEditorInputChange}
         init={{
           height: '90vh',
-          width: '100%',
+          width: '100vw',
         }}
       />
       <SavePostBtn

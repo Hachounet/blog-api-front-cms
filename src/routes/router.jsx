@@ -44,9 +44,9 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/update',
+        path: '/update/:postId',
         element: (
-          <UpdatePost url="https://hachounet-blog-api-backend.adaptable.app/dashboard/" />
+          <UpdatePost url="https://hachounet-blog-api-backend.adaptable.app/dashboard" />
         ),
       },
       {

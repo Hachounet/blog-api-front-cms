@@ -61,6 +61,7 @@ export default function PostCard({
       </div>
       <div className="flex justify-center pb-2 gap-1 items-center mt-auto">
         <ButtonGroup
+          postId={postId}
           updateURL={updateURL}
           handleDelete={handleDelete}
         />
